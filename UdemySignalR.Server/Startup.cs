@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UdemySignalR.Server.Hubs;
 
 namespace UdemySignalR.Server
 {
@@ -26,6 +27,8 @@ namespace UdemySignalR.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,7 +40,6 @@ namespace UdemySignalR.Server
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -45,6 +47,7 @@ namespace UdemySignalR.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MyHub>("/MyHub");
             });
         }
     }
